@@ -4,6 +4,8 @@ A vocoder Audio Unit plugin for Logic Pro. Speak or sing into a mic while playin
 
 Built with [JUCE](https://juce.com/) and C++17. Developed by [Yacht Pockets](https://github.com/duncanwold).
 
+![Guitar Vocoder Screenshot](screenshot.png)
+
 ## Features
 
 - **10 controls, no menu diving** — two macro knobs (Response + Clarity) control 9 internal parameters. An Advanced panel shows everything under the hood.
