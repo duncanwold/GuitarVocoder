@@ -42,7 +42,7 @@ chmod +x setup.sh && ./setup.sh
 Then build and install to Logic:
 
 ```bash
-./build-install.sh
+chmod +x build-install.sh && ./build-install.sh
 ```
 
 Or build manually:
@@ -51,7 +51,16 @@ Or build manually:
 mkdir -p build && cd build
 cmake .. -DCMAKE_PREFIX_PATH=$HOME/JUCE-installed
 cmake --build . --config Release
+```
+
+Then copy the built plugin to Logic's Components folder. The output path depends on your CMake generator:
+
+```bash
+# Makefile generator (default)
 cp -r "GuitarVocoder_artefacts/AU/Guitar Vocoder.component" ~/Library/Audio/Plug-Ins/Components/
+
+# Xcode generator
+cp -r "GuitarVocoder_artefacts/Release/AU/Guitar Vocoder.component" ~/Library/Audio/Plug-Ins/Components/
 ```
 
 ## Usage
