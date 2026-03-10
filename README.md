@@ -6,6 +6,15 @@ Built with [JUCE](https://juce.com/) and C++17. Developed by [Yacht Pockets](htt
 
 ![Guitar Vocoder Screenshot](vocoder.png)
 
+## Author's Note
+Fact: Vocoders are cool. From Kraftwerk to Chromeo, there's nothing like the man-machine-robo-funk of a vocoded vocal track. But vocoders tend to be the purview of keyboard players. And I am no keyboard player. I play guitar. So I built this plugin to make it really easy to get a nice sounding, intelligible vocoded vocal with just a dry guitar signal, and dry vocal signal together. And I think it came out pretty well.
+
+This plugin can be used playing live, with pre-recorded tracks, or a mix of both. It can also make some pretty far out sounds (see the examples folder). I hope you enjoy playing with it as much as I enjoyed making it.
+
+Cheers!
+
+-Duncan
+
 ## Features
 
 - **10 controls, no menu diving** — two macro knobs (Response + Clarity) control 9 internal parameters. An Advanced panel shows everything under the hood.
