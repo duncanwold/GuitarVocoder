@@ -58,3 +58,9 @@ Rap vocals over a fast picked bass line. Response and Clarity both maxed at 100%
 - **Guitar chords work better than single notes** — more harmonics = more frequency coverage for the vocoder to work with.
 - **Bass needs help** — when using bass as the carrier (Example 3), push Octave toward High and use Spread/Drive to fill the upper spectrum.
 - **Response controls feel** — low Response (Example 1) gives a smooth, pad-like quality. High Response (Examples 2-3) gives a crisp, talk-box feel.
+
+## Credits
+
+**Examples 1 & 2:** All vocals and instruments are Apple Loops (Logic Pro).
+
+**Example 3:** Rap vocals from ["Set My Pace" by Nat James](https://www.youtube.com/watch?v=V6aFpCQnquI) (free download acapella). Bass from Apple Loops (Logic Pro).
