@@ -1,6 +1,6 @@
 # Guitar Vocoder
 
-A vocoder Audio Unit plugin for Logic Pro. Speak or sing into a mic while playing guitar — the plugin applies your voice's spectral shape to the guitar signal, making the guitar "speak." (Note: this will work with midi keyboards and other signals, but it's meant to play really well with bass and guitar.)
+A vocoder Audio Unit/VST3 plugin. Speak or sing into a mic while playing guitar — the plugin applies your voice's spectral shape to the guitar signal, making the guitar "speak." (Note: this will work with midi keyboards and other signals, but it's meant to play really well with bass and guitar.)
 
 Built with [JUCE](https://juce.com/) and C++17. Developed by [Yacht Pockets](https://github.com/duncanwold).
 
