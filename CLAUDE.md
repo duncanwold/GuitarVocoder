@@ -1,14 +1,16 @@
-# Guitar Vocoder — JUCE Audio Unit Plugin
+# Guitar Vocoder — JUCE AU/VST3/AAX Plugin
 
 ## What It Is
-A vocoder plugin for Logic Pro. Voice (modulator) on the main input, guitar (carrier) via sidechain. The voice's spectral shape is applied to the guitar signal, making the guitar "speak."
+A vocoder plugin for Logic Pro, REAPER, Pro Tools, and other DAWs. Voice (modulator) on the main input, guitar (carrier) via sidechain. The voice's spectral shape is applied to the guitar signal, making the guitar "speak."
 
 ## Build
 ```bash
 cd ~/Desktop/GuitarVocoder
 cmake --build build --config Release
-# Or use the helper script which also installs to Logic:
-./build-install.sh
+# Or use the helper script which also signs and installs AU + VST3 (+ AAX if SDK present):
+chmod +x build-install.sh && ./build-install.sh
+# For signed + notarized distributable zips:
+./build-install.sh --notarize
 ```
 
 ## Signal Flow
