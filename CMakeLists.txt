@@ -6,11 +6,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(JUCE CONFIG REQUIRED)
 
+# AAX SDK path (download from developer.avid.com, not included in repo)
+set(AAX_SDK_PATH "$ENV{HOME}/AAX_SDK" CACHE PATH "Path to AAX SDK")
+if(EXISTS "${AAX_SDK_PATH}/Interfaces/AAX.h")
+    set(AAX_FORMAT AAX)
+    juce_set_aax_sdk_path(${AAX_SDK_PATH})
+    message(STATUS "AAX SDK found at ${AAX_SDK_PATH}")
+else()
+    set(AAX_FORMAT "")
+    message(STATUS "AAX SDK not found — building without AAX")
+endif()
+
 juce_add_plugin(GuitarVocoder
     COMPANY_NAME "YachtPockets"
     PLUGIN_MANUFACTURER_CODE Ypkt
     PLUGIN_CODE Gvoc
-    FORMATS AU VST3 Standalone
+    FORMATS AU VST3 Standalone ${AAX_FORMAT}
     PRODUCT_NAME "Guitar Vocoder"
     IS_SYNTH FALSE
     NEEDS_MIDI_INPUT FALSE
