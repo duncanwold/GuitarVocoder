@@ -31,7 +31,7 @@ Cheers!
 |--------|-----|--------|
 | **AU** | Logic Pro | ✅ Fully tested, primary target |
 | **VST3** | REAPER, Cubase, Studio One | ✅ Tested in REAPER |
-| **AAX** | Pro Tools | 🔜 Built, awaiting PACE signing |
+| **AAX** | Pro Tools | ✅ Signed and tested |
 
 All builds are macOS Apple Silicon (arm64) only.
 
