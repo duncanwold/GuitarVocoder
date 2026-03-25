@@ -10,6 +10,10 @@ AU_INSTALL_DIR="$HOME/Library/Audio/Plug-Ins/Components"
 VST3_INSTALL_DIR="$HOME/Library/Audio/Plug-Ins/VST3"
 AAX_INSTALL_DIR="/Library/Application Support/Avid/Audio/Plug-Ins"
 
+# PACE AAX signing config (requires iLok USB + Eden Tools)
+PACE_WCGUID="6471A390-2880-11F1-90A4-00505692C25A"
+PACE_ACCOUNT="duncanwold"
+
 # --- Build ---
 echo "Building..."
 cmake --build build --config Release
@@ -50,7 +54,7 @@ xattr -cr "$STAGING/"*
 find "$STAGING" -name '._*' -delete 2>/dev/null || true
 find "$STAGING" -name '.DS_Store' -delete 2>/dev/null || true
 
-# --- Sign ---
+# --- Sign AU + VST3 (Apple codesign) ---
 echo "Signing AU..."
 codesign --force --deep --options runtime \
   --sign "Developer ID Application" \
@@ -65,13 +69,30 @@ codesign --force --deep --options runtime \
 codesign --verify --deep --strict "$STAGING/$VST3_NAME"
 echo "✓ VST3 signed"
 
+# --- Sign AAX (Apple codesign + PACE wraptool) ---
 if $AAX_BUILT; then
-    echo "Signing AAX..."
-    codesign --force --deep --options runtime \
-      --sign "Developer ID Application" \
-      "$STAGING/$AAX_NAME"
-    codesign --verify --deep --strict "$STAGING/$AAX_NAME"
-    echo "✓ AAX signed (Apple codesign only — PACE signing required for distribution)"
+    if command -v wraptool &> /dev/null; then
+        echo "Signing AAX (PACE + Apple codesign)..."
+        echo "iLok USB must be plugged in. Enter your iLok password when prompted."
+        read -s -p "iLok password: " ILOK_PASS
+        echo ""
+        wraptool sign \
+          --wcguid "$PACE_WCGUID" \
+          --account "$PACE_ACCOUNT" \
+          --password "$ILOK_PASS" \
+          --signid "Developer ID Application" \
+          --dsig1-compat off \
+          --in "$STAGING/$AAX_NAME" \
+          --out "$STAGING/$AAX_NAME"
+        echo "✓ AAX signed (PACE + Apple codesign)"
+    else
+        echo "Signing AAX (Apple codesign only — wraptool not found)..."
+        codesign --force --deep --options runtime \
+          --sign "Developer ID Application" \
+          "$STAGING/$AAX_NAME"
+        codesign --verify --deep --strict "$STAGING/$AAX_NAME"
+        echo "✓ AAX signed (Apple only — install wraptool for PACE signing)"
+    fi
 fi
 
 # --- Install locally ---
@@ -84,7 +105,7 @@ echo "✓ Installed VST3 to $VST3_INSTALL_DIR"
 
 if $AAX_BUILT; then
     sudo mkdir -p "$AAX_INSTALL_DIR"
-    sudo cp -r "$STAGING/$AAX_NAME" "$AAX_INSTALL_DIR/"
+    sudo ditto "$STAGING/$AAX_NAME" "$AAX_INSTALL_DIR/$AAX_NAME"
     echo "✓ Installed AAX to $AAX_INSTALL_DIR"
 fi
 
@@ -121,7 +142,7 @@ if [[ "$1" == "--notarize" ]]; then
           --keychain-profile "GuitarVocoder-Notarize" \
           --wait
         sudo xcrun stapler staple "$AAX_INSTALL_DIR/$AAX_NAME"
-        echo "✓ AAX notarized (still needs PACE signing for regular Pro Tools)"
+        echo "✓ AAX notarized"
     fi
 
     # Create distributable zips on Desktop
